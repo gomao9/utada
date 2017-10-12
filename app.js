@@ -21,11 +21,9 @@ var app = new Vue({
         song.album        = song[':album_short']
         song.singers_text = song[':singers'].join('、');
 
-        var current_page = window.location.href;
         var share_text = `
 【${song.name}】(${song.singers_text})
 ${song.url}
-(${current_page} から)
         `.trim();
         song.imastodon_share = encodeURI('https://imastodon.net/share?text=' + share_text);
         song.twitter_share   = encodeURI('https://twitter.com/share?text='   + share_text);
