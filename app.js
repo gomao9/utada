@@ -62,7 +62,11 @@ var app = new Vue({
         var song_name = song.name.toLowerCase();
         var singer = song.singers_text;
         var cd_name = song.cd.name.toLowerCase();
-        return song_name.includes(word || '') || singer.includes(word || '') || cd_name.includes(word || '');
+        var cd_short = song.cd.name_short.toLowerCase();
+
+        return [song_name, singer, cd_name, cd_short].some(function (target) {
+          return target.includes(word || '');
+        });
       });
     }
   }
