@@ -19,7 +19,7 @@
   </head>
   <body>
     <div id="app">
-      <input v-model:value.sync='keyword' class="input" type="text" placeholder="曲名・アイドル名・ユニット名で検索">
+      <input v-model:value.sync='keyword' v-focus class="input" type="text" placeholder="曲名・アイドル名・ユニット名で検索">
       <b-table
          :data='songs'>
        <template scope="props">

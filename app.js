@@ -69,5 +69,12 @@ var app = new Vue({
         });
       });
     }
+  },
+  directives: {
+    focus: {
+      inserted: function (el) {
+        el.focus()
+      }
+    }
   }
 });
