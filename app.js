@@ -32,7 +32,8 @@ var app = new Vue({
   data: {
     keyword: '',
     original_songs: undefined,
-    songs: undefined
+    songs: undefined,
+    enabled_search_items: ["song_name", "idol_unit", "cd", "cd_short"]
   },
   mounted: function () {
     var cds = this.get_cds();
@@ -58,22 +59,31 @@ var app = new Vue({
       return cds.map(function (cd) {
         return new CD(cd);
       });
-    }
-  },
-  watch: {
-    keyword: function (word) {
+    },
+    update_filter: function() {
       this.songs = this.original_songs.filter(function(song) {
-        var song_name = song.name.toLowerCase();
-        var singer = song.singers_text;
-        var cd_name = song.cd.name.toLowerCase();
-        var cd_short = song.cd.name_short.toLowerCase();
+        var target_pairs = [ ["song_name", song.name.toLowerCase()],
+                             ["idol_unit", song.singers_text],
+                             ["cd", song.cd.name.toLowerCase()],
+                             ["cd", song.cd.name_short.toLowerCase()]]
+        var targets = target_pairs.filter(function (pair) {
+          return app.enabled_search_items.includes(pair[0])
+        }).map(function(pair) { return pair[1] });
 
         return app.keywords.every(function (word) {
-          return [song_name, singer, cd_name, cd_short].some(function (target) {
+          return targets.some(function (target) {
             return target.includes(word || '');
           });
         });
       });
+    }
+  },
+  watch: {
+    keyword: function () {
+      this.update_filter();
+    },
+    enabled_search_items: function () {
+      this.update_filter();
     }
   },
   directives: {

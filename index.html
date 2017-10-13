@@ -4,7 +4,6 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="https://unpkg.com/buefy/lib/buefy.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="./app.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.4.4/vue.js"></script>
     <script src="https://unpkg.com/buefy"></script>
@@ -19,52 +18,75 @@
   </head>
   <body>
     <div id="app">
-      <input v-model:value.sync='keyword' v-focus class="input" type="text" placeholder="曲名・アイドル名・ユニット名で検索">
-      <b-table
-         :data='songs'>
-       <template scope="props">
-            <b-table-column field="name" label="曲名" sortable>
-                {{ props.row.name }}
-            </b-table-column>
+      <section>
+        <div class="columns">
+          <div class="column">
+            <input v-model:value='keyword' v-focus class="input" type="text" placeholder="曲名・アイドル名・ユニット名で検索">
+          </div>
+          <div class="column">
+            <b-checkbox v-model="enabled_search_items"
+                        native-value="song_name">
+              曲名
+            </b-checkbox>
+            <b-checkbox v-model="enabled_search_items"
+                        native-value="idol_unit">
+              アイドル・ユニット
+            </b-checkbox>
+            <b-checkbox v-model="enabled_search_items"
+                        native-value="cd">
+              CD
+            </b-checkbox>
+          </div>
+        </div>
+      </section>
 
-            <b-table-column field="singers_text" label="アイドル・ユニット" sortable>
-                {{ props.row.singers_text }}
-            </b-table-column>
+      <section>
+        <b-table
+           :data='songs'>
+         <template scope="props">
+              <b-table-column field="name" label="曲名" sortable>
+                  {{ props.row.name }}
+              </b-table-column>
 
-            <b-table-column field="cd.name" label="CD" sortable>
-                {{ props.row.cd.name }}
-            </b-table-column>
+              <b-table-column field="singers_text" label="アイドル・ユニット" sortable>
+                  {{ props.row.singers_text }}
+              </b-table-column>
 
-            <b-table-column width='230' class='buttons'>
-              <a class='button is-small is-light'
-                :href='props.row.url'
-                target="_blank"
-                rel="noreferrer noopener"
-                is-centered
-                v-if='props.row.url'>
-                <span class="icon is-small">
-                  <i class="fa fa-headphones"></i>
-                </span>
-                <span>試聴</span>
-              </a>
-              <a class='button is-small is-primary'
-                :href='props.row.imastodon_share'
-                target="_blank"
-                rel="noreferrer noopener">
-                <span>あふぅ<span>
-              </a>
-              <a class='button is-small is-info'
-                :href='props.row.twitter_share'
-                target="_blank"
-                rel="noreferrer noopener">
-                <span class="icon is-small">
-                  <i class="fa fa-twitter"></i>
-                </span>
-                <span>Tweet</span>
-              </a>
-            </b-table-column>
-        </template>
-      </b-table>
+              <b-table-column field="cd.name" label="CD" sortable>
+                  {{ props.row.cd.name }}
+              </b-table-column>
+
+              <b-table-column width='230' class='buttons'>
+                <a class='button is-small is-light'
+                  :href='props.row.url'
+                  target="_blank"
+                  rel="noreferrer noopener"
+                  is-centered
+                  v-if='props.row.url'>
+                  <span class="icon is-small">
+                    <i class="fa fa-headphones"></i>
+                  </span>
+                  <span>試聴</span>
+                </a>
+                <a class='button is-small is-primary'
+                  :href='props.row.imastodon_share'
+                  target="_blank"
+                  rel="noreferrer noopener">
+                  <span>あふぅ<span>
+                </a>
+                <a class='button is-small is-info'
+                  :href='props.row.twitter_share'
+                  target="_blank"
+                  rel="noreferrer noopener">
+                  <span class="icon is-small">
+                    <i class="fa fa-twitter"></i>
+                  </span>
+                  <span>Tweet</span>
+                </a>
+              </b-table-column>
+          </template>
+        </b-table>
+      </section>
     </div>
     <script src="./app.js" type="text/javascript"></script>
   </body>
