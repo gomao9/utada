@@ -21,7 +21,7 @@
       <section>
         <div class="columns">
           <div class="column">
-            <input v-model:value='keyword' v-focus class="input" type="text" placeholder="曲名・アイドル名・ユニット名で検索">
+            <input v-model:value='keyword' v-focus class="input" type="text" placeholder="曲名,アイドル/ユニット名,CD名で検索">
           </div>
           <div class="column">
             <b-checkbox v-model="enabled_search_items"
@@ -42,7 +42,10 @@
 
       <section>
         <b-table
+            :paginated="true"
+            :per-page="10"
             :data='songs'>
+
           <template scope="props">
             <b-table-column field="name" label="曲名" sortable>
                 {{ props.row.name }}
