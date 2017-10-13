@@ -40,6 +40,11 @@ var app = new Vue({
     this.original_songs = songs;
     this.songs = songs;
   },
+  computed: {
+    keywords: function () {
+      return this.keyword.toLowerCase().replace(/[\s　]+/gi, ' ').trim().split(' ');
+    }
+  },
   methods: {
     get_songs: function (cds) {
       var songs = YAML.load('https://bitbucket.org/gomao9/utada_data/raw/83cc065fc2ae402c0375181a47df4e97c95039b6/million.yml').concat(
@@ -57,15 +62,16 @@ var app = new Vue({
   },
   watch: {
     keyword: function (word) {
-      word = word.toLowerCase();
       this.songs = this.original_songs.filter(function(song) {
         var song_name = song.name.toLowerCase();
         var singer = song.singers_text;
         var cd_name = song.cd.name.toLowerCase();
         var cd_short = song.cd.name_short.toLowerCase();
 
-        return [song_name, singer, cd_name, cd_short].some(function (target) {
-          return target.includes(word || '');
+        return app.keywords.every(function (word) {
+          return [song_name, singer, cd_name, cd_short].some(function (target) {
+            return target.includes(word || '');
+          });
         });
       });
     }
