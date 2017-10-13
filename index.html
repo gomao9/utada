@@ -31,6 +31,10 @@
                 {{ props.row.singers_text }}
             </b-table-column>
 
+            <b-table-column field="cd.name" label="CD" sortable>
+                {{ props.row.cd.name }}
+            </b-table-column>
+
             <b-table-column width='230' class='buttons'>
               <a class='button is-small is-light'
                 :href='props.row.url'
