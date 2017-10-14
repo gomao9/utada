@@ -48,14 +48,14 @@ var app = new Vue({
   },
   methods: {
     get_songs: function (cds) {
-      var songs = YAML.load('https://bitbucket.org/gomao9/utada_data/raw/83cc065fc2ae402c0375181a47df4e97c95039b6/million.yml').concat(
-        YAML.load('https://bitbucket.org/gomao9/utada_data/raw/83cc065fc2ae402c0375181a47df4e97c95039b6/cinderella.yml'));
+      var songs = YAML.load('https://bitbucket.org/gomao9/utada_data/raw/master/million.yml').concat(
+        YAML.load('https://bitbucket.org/gomao9/utada_data/raw/master/cinderella.yml'));
       return songs.map(function(song) {
         return new Song(song, cds);
       });
     },
     get_cds: function () {
-      var cds = YAML.load('https://bitbucket.org/gomao9/utada_data/raw/83cc065fc2ae402c0375181a47df4e97c95039b6/albums.yml')
+      var cds = YAML.load('https://bitbucket.org/gomao9/utada_data/raw/master/albums.yml')
       return cds.map(function (cd) {
         return new CD(cd);
       });
