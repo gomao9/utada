@@ -58,7 +58,15 @@ class Unit {
 }
 
 
-const router = new VueRouter({});
+const router = new VueRouter({
+  routes: [
+    {
+      path: '/',
+      component: app,
+      props: 'keyword'
+    }
+  ]
+});
 
 var app = new Vue({
   el: '#app',
@@ -74,6 +82,7 @@ var app = new Vue({
     var songs = this.get_songs(cds, units);
     this.original_songs = songs;
     this.songs = songs;
+    this.keyword = this.$route.query.keyword || ''
   },
   computed: {
     keywords: function () {
@@ -121,8 +130,12 @@ var app = new Vue({
     }
   },
   watch: {
+    '$route': function() {
+      this.keyword = this.$route.query.keyword;
+    },
     keyword: function () {
       this.update_filter();
+      router.push({ query: { keyword: this.keyword || '' }});
     },
     enabled_search_items: function () {
       this.update_filter();
