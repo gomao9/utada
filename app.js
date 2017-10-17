@@ -9,16 +9,20 @@ class Song {
     this.set_singers_text();
 
     var singers = this.singers_text ? `(${this.singers_text})` : ''
-    var share_text = `
+    this.share_text = `
 【${this.name}】${singers}
 ${this.url}
     `.trim();
-    this.imastodon_share = encodeURI('https://imastodon.net/share?text=' + share_text);
-    this.twitter_share   = encodeURI('https://twitter.com/share?text='   + share_text);
+    this.set_share_text('');
 
     this.cd = cds.find(function (cd) {
       return cd.name_short == hash[':album_short'];
     });
+  }
+
+  set_share_text(suffix) {
+    this.imastodon_share = 'https://imastodon.net/share?text=' + encodeURIComponent(this.share_text + suffix);
+    this.twitter_share   = 'https://twitter.com/share?text='   + encodeURIComponent(this.share_text + suffix);
   }
 
   set_unit(units) {
@@ -63,7 +67,8 @@ var app = new Vue({
     keyword: '',
     original_songs: undefined,
     songs: undefined,
-    enabled_search_items: ["song_name", "idol_unit", "cd", "cd_short"]
+    enabled_search_items: ["song_name", "idol_unit", "cd", "cd_short"],
+    enable_hashtag: false
   },
   mounted: function () {
     var units = this.get_units();
@@ -75,6 +80,9 @@ var app = new Vue({
   computed: {
     keywords: function () {
       return this.keyword.toLowerCase().replace(/[\s　]+/gi, ' ').trim().split(' ');
+    },
+    hashtag_label: function () {
+      return this.enable_hashtag ? '#imas_djをつける' : '#imas_djをつけない'
     }
   },
   methods: {
@@ -123,6 +131,9 @@ var app = new Vue({
     },
     enabled_search_items: function () {
       this.update_filter();
+    },
+    enable_hashtag: function (enabled) {
+      this.songs.forEach(function(song) { song.set_share_text(enabled ? ' #imas_dj' : '') })
     }
   },
   directives: {
