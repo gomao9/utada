@@ -37,6 +37,11 @@
               CD
             </b-checkbox>
           </div>
+          <div class="column">
+            <b-switch v-model="enable_hashtag">
+              {{ hashtag_label }}
+            </b-switch>
+          </div>
         </div>
       </section>
 
@@ -72,7 +77,7 @@
                 <span>試聴</span>
               </a>
               <a class='button is-small is-primary'
-                :href='props.row.imastodon_share'
+                 :href="props.row.imastodon_share"
                 target="_blank"
                 rel="noreferrer noopener">
                 <span>あふぅ<span>
