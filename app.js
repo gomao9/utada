@@ -53,9 +53,12 @@ class CD {
 
 class Unit {
   constructor(hash) {
-    this.name         = hash[':name'];
+    this.name = hash[':name'];
   }
 }
+
+
+const router = new VueRouter({});
 
 var app = new Vue({
   el: '#app',
@@ -131,5 +134,6 @@ var app = new Vue({
         el.focus()
       }
     }
-  }
+  },
+  router: router
 });

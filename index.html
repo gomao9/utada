@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="./app.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.4.4/vue.js"></script>
+    <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
     <script src="https://unpkg.com/buefy"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/yamljs/0.3.0/yaml.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
@@ -56,7 +57,9 @@
             </b-table-column>
 
             <b-table-column field="cd.name" label="CD" sortable>
+              <router-link :to="{ path: '', query: { keyword: '天海春香' }}">
                 {{ props.row.cd.name }}
+              </router-link>
             </b-table-column>
 
             <b-table-column width='230' class='buttons'>
