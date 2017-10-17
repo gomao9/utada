@@ -74,7 +74,7 @@ var app = new Vue({
     keyword: '',
     original_songs: undefined,
     songs: undefined,
-    enabled_search_items: ["song_name", "idol_unit", "cd", "cd_short"]
+    enabled_search_items: ["song_name", "idol_unit", "cd"]
   },
   mounted: function () {
     var units = this.get_units();
@@ -82,7 +82,8 @@ var app = new Vue({
     var songs = this.get_songs(cds, units);
     this.original_songs = songs;
     this.songs = songs;
-    this.keyword = this.$route.query.keyword || ''
+    this.keyword = this.$route.query.keyword || '';
+    this.enabled_search_items = this.$route.query.enabled_search_items;
   },
   computed: {
     keywords: function () {
@@ -127,18 +128,24 @@ var app = new Vue({
           });
         });
       });
+    },
+    set_query: function () {
+      router.push({
+        query: {
+          keyword: this.keyword || '',
+          enabled_search_items: this.enabled_search_items || []
+        }
+      });
     }
   },
   watch: {
-    '$route': function() {
-      this.keyword = this.$route.query.keyword;
-    },
     keyword: function () {
       this.update_filter();
-      router.push({ query: { keyword: this.keyword || '' }});
+      this.set_query();
     },
     enabled_search_items: function () {
       this.update_filter();
+      this.set_query();
     }
   },
   directives: {
