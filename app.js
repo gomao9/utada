@@ -87,20 +87,20 @@ var app = new Vue({
   },
   methods: {
     get_songs: function (cds, units) {
-      var songs = YAML.load('https://bitbucket.org/gomao9/utada_data/raw/master/million.yml').concat(
-        YAML.load('https://bitbucket.org/gomao9/utada_data/raw/master/cinderella.yml'));
+      var songs = YAML.load('data/million.yml').concat(
+        YAML.load('data/cinderella.yml'));
       return songs.map(function(song) {
         return new Song(song, cds, units);
       });
     },
     get_cds: function () {
-      var cds = YAML.load('https://bitbucket.org/gomao9/utada_data/raw/master/albums.yml')
+      var cds = YAML.load('data/albums.yml')
       return cds.map(function (cd) {
         return new CD(cd);
       });
     },
     get_units: function () {
-      var units = YAML.load('https://bitbucket.org/gomao9/utada_data/raw/master/idols.yml');
+      var units = YAML.load('data/idols.yml');
       return units.map(function (unit) {
         if (unit[':unit']) {
           return new Unit(unit);
